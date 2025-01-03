@@ -1,4 +1,5 @@
-﻿using ScreenSound.Modelos;
+﻿using ScreenSound.Banco;
+using ScreenSound.Modelos;
 
 namespace ScreenSound.Menus;
 
@@ -10,11 +11,15 @@ internal class MenuMostrarMusicas : Menu
         ExibirTituloDaOpcao("Exibir detalhes do artista");
         Console.Write("Digite o nome do artista que deseja conhecer melhor: ");
         string nomeDoArtista = Console.ReadLine()!;
-        if (artistasRegistrados.ContainsKey(nomeDoArtista))
+
+        ScreenSoundContext context = new ScreenSoundContext();
+        Dal<Artista> artistaDal = new Dal<Artista>(context);
+        var ArtistaRecuperado = artistaDal.RecuperarPor(a => a.Nome.Equals(nomeDoArtista));
+
+        if (ArtistaRecuperado is not null)
         {
-            Artista artista = artistasRegistrados[nomeDoArtista];
             Console.WriteLine("\nDiscografia:");
-            artista.ExibirDiscografia();
+            ArtistaRecuperado.ExibirDiscografia();
             Console.WriteLine("\nDigite uma tecla para voltar ao menu principal");
             Console.ReadKey();
             Console.Clear();
