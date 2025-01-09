@@ -18,6 +18,15 @@ public class ScreenSoundContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(StringDeConexao).UseLazyLoadingProxies();
+        optionsBuilder.UseSqlServer(StringDeConexao).UseLazyLoadingProxies(false);
     }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+    }
+
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer(StringDeConexao).UseLazyLoadingProxies();
+    //}
 }
