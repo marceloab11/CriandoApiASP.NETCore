@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using ScreenSoud.Shared.Modelos.Modelos;
 using ScreenSound.Modelos;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ public class ScreenSoundContext : DbContext
 
     public DbSet<Musica> Musicas { get; set; }
 
+    public DbSet<Genero> Genero { get; set; }
+
     private readonly string StringDeConexao = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ScreenSoundV0;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,8 +25,11 @@ public class ScreenSoundContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Musica>()
+            .HasMany(c => c.Generos)
+            .WithMany(c => c.Musicas);
     }
+
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{

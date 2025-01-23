@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ScreenSoud.API.Endpoints;
+using ScreenSoud.Shared.Modelos.Modelos;
 using ScreenSound.Banco;
 using ScreenSound.Modelos;
 using System.Data.SqlTypes;
@@ -13,6 +14,8 @@ builder.Services.AddTransient<Dal<Artista>>();
 
 builder.Services.AddTransient<Dal<Musica>>();
 
+builder.Services.AddTransient<Dal<Genero>>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -22,6 +25,7 @@ var app = builder.Build();
 
 app.AddEndpointsArtistas();
 app.AddEndpointsMusicas();
+app.AddEndpointsGenero();
 
 app.UseSwagger();
 app.UseSwaggerUI();
